@@ -36,7 +36,6 @@ void tabInsertParam(const std::string &id, DataType &dtype)
 	}
 }
 
-
 const std::vector<DataType> & tabGetParams(const std::string &id)
 {
 	const static std::vector<DataType> EMPTY_PARAMS;

@@ -1,0 +1,14 @@
+void main()
+var int a 
+var int b 
+a = 1
+b = 2
+a  
+bz $ELSE_1  
+label $IF_1
+printf str $STRING_0
+goto $IF_1_END
+label $ELSE_1
+printf str $STRING_1
+label $IF_1_END
+end

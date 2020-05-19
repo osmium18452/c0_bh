@@ -18,6 +18,7 @@ std::string     source_filename;
 std::ifstream   source_stream;
 std::ostream    midcode_stream(NULL);
 std::ostream    mipscode_stream(NULL);
+std::ostream    tuple_stream(NULL);
 std::ostream    opt_midcode_stream(NULL);
 std::ostream    opt_mipscode_stream(NULL);
 std::ostream    debug_stream(NULL);
@@ -28,17 +29,20 @@ static void initialize();
 int main(int argc, char *argv[]) {
 	initialize();
 
-	source_filename = argc > 1 ? argv[1] : "hello_world.txt";
+	source_filename = argc > 1 ? argv[1] : "../accessories/hello.txt";
 	source_stream.open(source_filename);
 
 	//midcode_stream.rdbuf(std::cout.rdbuf());
-	std::string midcode_filename = "mid_code.txt";
-	std::string mipscode_filename = "mips_code.txt";
-	std::filebuf buffer1, buffer2;
+	std::string midcode_filename = "../accessories/mid_code.txt";
+	std::string mipscode_filename = "../accessories/mips_code.txt";
+	std::string tuple_filename="../accessories/tuple_code.txt";
+	std::filebuf buffer1, buffer2,buffer3;
 	buffer1.open(midcode_filename, std::ios_base::out);
 	buffer2.open(mipscode_filename, std::ios_base::out);
+	buffer3.open(tuple_filename,std::ios_base::out);
 	midcode_stream.rdbuf(&buffer1);
 	mipscode_stream.rdbuf(&buffer2);
+	tuple_stream.rdbuf(&buffer3);
 
 	// debug messages
 	debug_stream.rdbuf(std::cout.rdbuf());
@@ -52,6 +56,11 @@ int main(int argc, char *argv[]) {
 
 	std::cout << "compile success!\n";
 	std::cout << "mid code at: " << midcode_filename << std::endl;
+	/*for (FourTuple i:mid_codes){
+		using std::cout;
+		using std::endl;
+		tuple_stream<<i.op<<" "<<i.a<<" "<<i.b<<" "<<i.res<<endl;
+	}*/
 	// convert mid-code to MIPS code
 	convertToMIPS();
 	std::cout << "mips code at: " << mipscode_filename << std::endl;

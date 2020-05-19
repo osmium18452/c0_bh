@@ -1,0 +1,14 @@
+FUNC void main 
+VAR int a 
+VAR int b 
+ASSIGN 1  a
+ASSIGN 2  b
+COMPARE a  
+BZ $ELSE_1  
+LABEL $IF_1  
+WRITE str $STRING_0 
+GOTO $IF_1_END  
+LABEL $ELSE_1  
+WRITE str $STRING_1 
+LABEL $IF_1_END  
+END   

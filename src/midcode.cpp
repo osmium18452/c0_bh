@@ -33,6 +33,23 @@ std::vector<FourTuple> mid_codes;
 static int cache_depth = 0;
 static std::vector<std::vector<FourTuple>> cachedMidCode;
 
+std::string opcode_convertable[]={
+		"ASSIGN",
+		"ADD", "SUB", "MUL", "DIV",
+		"FUNC", "PARA",
+		"GVAR", "VAR",
+		"PUSH", "CALL",
+		"RET", "GETRET",
+		"WARRAY", "RARRAY",         // write array, read array
+		"WRITE", "READ",
+		"COMPARE",
+		"END",                    // function complete
+		"LABEL", "GOTO",
+		"BZ",                     // branch if previous compare is zero
+		"BNZ",                    // branch if previous compare is not zero
+		"TEMP",                   // temp variable
+};
+
 void genMidCode(
 		const OpCode &op,
 		const std::string &a,
@@ -40,6 +57,7 @@ void genMidCode(
 		const std::string &res)
 {
 	FourTuple t = { op, a, b, res };
+	tuple_stream<<opcode_convertable[op]<<" "<<a<<" "<<b<<" "<<res<<std::endl;
 	// cache_depth usually is 0
 	if (cache_depth != 0) {
 		// NOTE: do use reference here

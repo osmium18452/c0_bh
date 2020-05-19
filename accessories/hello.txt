@@ -1,0 +1,8 @@
+void main(){
+const int c=1;
+int a,b;
+a=1;
+b=2;
+if (a) printf("hello world");
+else printf("nihao shijie");
+}

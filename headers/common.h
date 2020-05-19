@@ -25,6 +25,8 @@ extern std::ostream     mipscode_stream;    // mips code output stream
 extern std::ostream     opt_midcode_stream; // optimized midddle code output
 extern std::ostream     opt_mipscode_stream;// optimized mips code output
 extern std::ostream     debug_stream;       // debug
+extern std::ostream     tuple_stream;
+extern std::string      opcode_convertable[];
 
 
 /**
