@@ -1,14 +1,49 @@
-void main()
-var int a 
-var int b 
-a = 1
-b = 2
-a  
+var int aaa 
+var int bbb 
+int fib()
+para int n
+para int l
+n EQL 0
 bz $ELSE_1  
 label $IF_1
-printf str $STRING_0
+ret 1
 goto $IF_1_END
 label $ELSE_1
-printf str $STRING_1
+n EQL 1
+bz $ELSE_2  
+label $IF_2
+ret 1
+goto $IF_2_END
+label $ELSE_2
+temp int $t_0
+$t_0 = n - 1
+push int $t_0
+push int 1
+call fib
+temp int $t_1
+getret $t_1
+temp int $t_2
+$t_2 = n - 2
+push int $t_2
+push int 1
+call fib
+temp int $t_3
+getret $t_3
+temp int $t_4
+$t_4 = $t_1 + $t_3
+ret $t_4
+label $IF_2_END
 label $IF_1_END
+end
+void main()
+var int n 
+printf str $STRING_0
+scanf int n
+printf str $STRING_1
+push int n
+push int 1
+call fib
+temp int $t_5
+getret $t_5
+printf int $t_5
 end

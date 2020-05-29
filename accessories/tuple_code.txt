@@ -1,14 +1,51 @@
-FUNC void main 
-VAR int a 
-VAR int b 
-ASSIGN 1  a
-ASSIGN 2  b
-COMPARE a  
+GVAR int aaa 
+GVAR int bbb
+
+FUNC int fib 
+PARA int n 
+PARA int l 
+COMPARE n EQL 0
 BZ $ELSE_1  
 LABEL $IF_1  
-WRITE str $STRING_0 
+RET 1  
 GOTO $IF_1_END  
 LABEL $ELSE_1  
-WRITE str $STRING_1 
+COMPARE n EQL 1
+BZ $ELSE_2  
+LABEL $IF_2  
+RET 1  
+GOTO $IF_2_END  
+LABEL $ELSE_2  
+TEMP int $t_0 
+SUB n 1 $t_0
+PUSH int $t_0 
+PUSH int 1 
+CALL fib 2 
+TEMP int $t_1 
+GETRET   $t_1
+TEMP int $t_2 
+SUB n 2 $t_2
+PUSH int $t_2 
+PUSH int 1 
+CALL fib 2 
+TEMP int $t_3 
+GETRET   $t_3
+TEMP int $t_4 
+ADD $t_1 $t_3 $t_4
+RET $t_4  
+LABEL $IF_2_END  
 LABEL $IF_1_END  
+END
+
+FUNC void main 
+VAR int n 
+WRITE str $STRING_0 
+READ int n 
+WRITE str $STRING_1 
+PUSH int n 
+PUSH int 1 
+CALL fib 2 
+TEMP int $t_5 
+GETRET   $t_5
+WRITE int $t_5 
 END   

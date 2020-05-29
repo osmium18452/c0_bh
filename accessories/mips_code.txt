@@ -1,29 +1,86 @@
 .data
-        $STRING_0: .asciiz "hello world"
-        $STRING_1: .asciiz "nihao shijie"
+        aaa:	.word	0
+        bbb:	.word	0
+        $STRING_0: .asciiz "Please input: "
+        $STRING_1: .asciiz "Result is: "
 .text
         jal	main
         li	$v0, 10
         syscall
+fib:
+        addiu	$sp, $sp, -32
+        sw	$ra, 28($sp)
+        lw	$v0, 24($sp)
+        bne	$v0, $zero, $ELSE_1
+    $IF_1:
+        li	$v0, 1
+        lw	$ra, 28($sp)
+        addiu	$sp, $sp, 32
+        jr	$ra
+        j	$IF_1_END
+    $ELSE_1:
+        lw	$v0, 24($sp)
+        li	$v1, 1
+        bne	$v0, $v1, $ELSE_2
+    $IF_2:
+        li	$v0, 1
+        lw	$ra, 28($sp)
+        addiu	$sp, $sp, 32
+        jr	$ra
+        j	$IF_2_END
+    $ELSE_2:
+        lw	$v0, 24($sp)
+        subu	$v0, $v0, 1
+        sw	$v0, 16($sp)
+        lw	$v0, 16($sp)
+        sw	$v0, -8($sp)
+        li	$v0, 1
+        sw	$v0, -12($sp)
+        jal	fib
+        sw	$v0, 12($sp)
+        lw	$v0, 24($sp)
+        subu	$v0, $v0, 2
+        sw	$v0, 8($sp)
+        lw	$v0, 8($sp)
+        sw	$v0, -8($sp)
+        li	$v0, 1
+        sw	$v0, -12($sp)
+        jal	fib
+        sw	$v0, 4($sp)
+        lw	$v0, 12($sp)
+        lw	$v1, 4($sp)
+        addu	$v0, $v0, $v1
+        sw	$v0, 0($sp)
+        lw	$v0, 0($sp)
+        lw	$ra, 28($sp)
+        addiu	$sp, $sp, 32
+        jr	$ra
+    $IF_2_END:
+    $IF_1_END:
+        lw	$ra, 28($sp)
+        addiu	$sp, $sp, 32
+        jr	$ra
 main:
         addiu	$sp, $sp, -12
         sw	$ra, 8($sp)
-        li	$v0, 1
-        sw	$v0, 4($sp)
-        li	$v0, 2
-        sw	$v0, 0($sp)
-        lw	$v0, 4($sp)
-        beq	$v0, $zero, $ELSE_1
-    $IF_1:
         la	$a0, $STRING_0
         li	$v0, 4
         syscall
-        j	$IF_1_END
-    $ELSE_1:
+        li	$v0, 5
+        syscall
+        sw	$v0, 4($sp)
         la	$a0, $STRING_1
         li	$v0, 4
         syscall
-    $IF_1_END:
+        lw	$v0, 4($sp)
+        sw	$v0, -8($sp)
+        li	$v0, 1
+        sw	$v0, -12($sp)
+        jal	fib
+        sw	$v0, 0($sp)
+        lw	$a0, 0($sp)
+        li	$v0, 1
+        syscall
         lw	$ra, 8($sp)
         addiu	$sp, $sp, 12
         jr	$ra
